@@ -1,6 +1,7 @@
 import { CSSProperties, FC, useEffect, useState } from 'react';
 import { getDocumentFromHtml, HtmlFileDocument } from './helper';
 import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
+import { HtmlDocument } from './HtmlDocument';
 
 type Props = {
   path: string;
@@ -27,7 +28,7 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
         <Spacer height={5} />
         <Flex>
           {html?.keywords.map((keyword) => (
-            <Tag marginRight={2} colorScheme="cyan">
+            <Tag key={keyword} marginRight={2} colorScheme="cyan">
               {keyword}
             </Tag>
           ))}
@@ -40,8 +41,9 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
         </Link>
       </Box>
       <Flex justifyContent="space-around" gap="5%">
-        <Box flexGrow={1} minWidth="50%">
-          <pre style={{ overflow: 'auto' }}>{html?.outerText}</pre>
+        <Box flexGrow={1} maxWidth="50%">
+          {html && <HtmlDocument htmlDocument={html.document} />}
+          {/* <pre style={{ overflow: 'auto' }}>{html?.outerText}</pre> */}
         </Box>
         <Box flexGrow={1}>
           <iframe

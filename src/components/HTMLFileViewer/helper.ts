@@ -8,7 +8,6 @@ type HtmlFileDocument = {
 
 const documentToHtml = (document: Document) => {
   const head = document.head.innerHTML.split(/\n\n/).join('');
-  console.log(head);
   const breakLine = /\n\n/g;
   return `<html lang="en">
   \n${document.head.outerHTML}
