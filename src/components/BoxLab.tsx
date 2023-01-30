@@ -10,7 +10,7 @@ const BoxLab = () => {
       <Heading as="h1" size="4xl" textAlign="center" marginY={10}>
         BOX DOM LAB
       </Heading>
-      <Flex flexDirection="column" alignItems="center">
+      <Flex flexDirection="column" alignItems="center" gap={10}>
         {paths.map((path) => (
           <HTMLFileViewer
             key={path}
