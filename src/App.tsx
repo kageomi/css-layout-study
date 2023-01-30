@@ -1,12 +1,12 @@
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 
-import { BoxLab } from './components/BoxLab';
+import { LayoutStudy } from './components/LayoutStudy';
 
 const App = () => {
   return (
     <ChakraProvider>
-      <BoxLab />;
+      <LayoutStudy />;
     </ChakraProvider>
   );
 };

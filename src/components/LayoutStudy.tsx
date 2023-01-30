@@ -4,11 +4,11 @@ import { Heading, Flex, Spacer } from '@chakra-ui/react';
 
 const paths = [centering];
 
-const BoxLab = () => {
+const LayoutStudy = () => {
   return (
     <>
       <Heading as="h1" size="4xl" textAlign="center" marginY={10}>
-        BOX DOM LAB
+        CSS LAYOUT STUDY
       </Heading>
       <Flex flexDirection="column" alignItems="center" gap={10}>
         {paths.map((path) => (
@@ -23,4 +23,4 @@ const BoxLab = () => {
   );
 };
 
-export { BoxLab };
+export { LayoutStudy };
