@@ -1,9 +1,14 @@
-function App() {
+import './App.css';
+import { ChakraProvider } from '@chakra-ui/react';
+
+import { BoxLab } from './components/BoxLab';
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>BOX DOM LAB</h1>
-    </div>
+    <ChakraProvider>
+      <BoxLab />;
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
