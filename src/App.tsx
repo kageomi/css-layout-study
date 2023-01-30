@@ -1,9 +1,9 @@
-function App() {
-  return (
-    <div className="App">
-      <h1>BOX DOM LAB</h1>
-    </div>
-  );
-}
+import './App.css';
+
+import { BoxLab } from './components/BoxLab';
+
+const App = () => {
+  return <BoxLab></BoxLab>;
+};
 
 export default App;
