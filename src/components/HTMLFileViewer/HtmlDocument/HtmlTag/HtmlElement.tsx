@@ -1,6 +1,6 @@
-import { CSSProperties, FC } from 'react';
-import { ColorScheme } from '../types';
+import type { CSSProperties, FC } from 'react';
 import { Box } from '@chakra-ui/react';
+import type { ColorScheme } from '../types';
 import { HtmlTag } from '.';
 
 type Props = {
@@ -10,13 +10,12 @@ type Props = {
 };
 
 const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
-  const representation = element.outerHTML.split(/\n/).join('');
+  // const representation = element.outerHTML.split(/\n/).join('');
   const { childNodes, tagName } = element;
   const tag = tagName.toLocaleLowerCase();
   const childNodeComponents = Array.from(childNodes).map((child, index) => {
-    const key = `${index} ${
-      child instanceof Element ? child.tagName : child.textContent
-    }`;
+    const key = `${index} ${child instanceof Element ? child.tagName : ''}`;
+
     return <HtmlTag key={key} element={child} colorScheme={colorScheme} />;
   });
 
@@ -28,7 +27,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
       <Box display="inline-block" color={colorScheme.tagName}>
         {tag}
       </Box>
-      {/* TODO: attributes*/}
+      {/* TODO: attributes */}
       <Box display="inline-block" color={colorScheme.tagBlanket}>
         &gt;
       </Box>

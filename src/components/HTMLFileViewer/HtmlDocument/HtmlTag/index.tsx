@@ -1,8 +1,8 @@
-import { CSSProperties, FC } from 'react';
-import { HtmlNode } from './HtmlNode';
+import type { CSSProperties, FC } from 'react';
+import type { ColorScheme } from '../types';
 import { HtmlElement } from './HtmlElement';
+import { HtmlNode } from './HtmlNode';
 import { HtmlStyle } from './HtmlStyle';
-import { ColorScheme } from '../types';
 
 type Props = {
   element: Element | ChildNode;
@@ -19,6 +19,7 @@ const HtmlTag: FC<Props> = ({ element, colorScheme, style = {} }) => {
         colorScheme={colorScheme}
       />
     );
+
   return element instanceof Element ? (
     <HtmlElement element={element} style={style} colorScheme={colorScheme} />
   ) : (

@@ -1,9 +1,9 @@
-import { CSSProperties, FC } from 'react';
-import { ColorScheme } from './types';
-import { colorScheme as defaultScheme } from './colorScheme';
+import type { CSSProperties, FC } from 'react';
 import { Box, Spacer } from '@chakra-ui/react';
-import { HtmlTag } from './HtmlTag';
 import { HtmlRootTag } from './HtmlRootTag';
+import { HtmlTag } from './HtmlTag';
+import { colorScheme as defaultScheme } from './colorScheme';
+import type { ColorScheme } from './types';
 
 type Props = {
   htmlDocument: Document;

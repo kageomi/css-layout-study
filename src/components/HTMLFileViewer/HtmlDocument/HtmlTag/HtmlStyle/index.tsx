@@ -1,8 +1,8 @@
-import { CSSProperties, FC } from 'react';
-import { ColorScheme } from '../../types';
+import type { CSSProperties, FC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { Style } from './type';
+import type { ColorScheme } from '../../types';
 import { ElementStyle } from './ElementStyle';
+import type { Style } from './type';
 
 type Props = {
   styleElement: Element;
@@ -19,12 +19,14 @@ const getStyleObject = (styleText: string): Style | null => {
     .map((line) => {
       const match = /\s*(.+?):\s*(.+?);/.exec(line);
       if (match == null) return null;
+
       return {
         name: match[1],
         value: match[2],
       };
     })
     .filter((style) => style != null);
+
   return {
     selector,
     attributes,

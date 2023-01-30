@@ -1,10 +1,11 @@
-import { HTMLFileViewer } from './HtmlFileViewer';
-import centering from '../html/centering.html?url';
+import type { FC } from 'react';
 import { Heading, Flex, Box, Spacer } from '@chakra-ui/react';
+import centering from '../html/centering.html?url';
+import { HTMLFileViewer } from './HtmlFileViewer';
 
 const paths = [centering];
 
-const LayoutStudy = () => {
+const LayoutStudy: FC = () => {
   return (
     <>
       <Heading as="h1" size="4xl" textAlign="center" marginY={10}>

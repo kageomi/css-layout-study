@@ -1,9 +1,9 @@
 type Style = {
   selector: string;
-  attributes: ({
+  attributes: Array<{
     name: string;
     value: string;
-  } | null)[];
+  } | null>;
 };
 
 export type { Style };

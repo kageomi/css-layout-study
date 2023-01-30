@@ -1,7 +1,8 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
-import { getDocumentFromHtml, HtmlFileDocument } from './helper';
+import type { CSSProperties, FC } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
 import { HtmlDocument } from './HtmlDocument';
+import { getDocumentFromHtml, type HtmlFileDocument } from './helper';
 
 type Props = {
   path: string;
@@ -18,7 +19,7 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
       const fileDocument = getDocumentFromHtml(htmlText);
       setHtml(fileDocument);
     };
-    getHtmlText();
+    void getHtmlText();
   }, [path]);
 
   return (
@@ -47,6 +48,7 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
         </Box>
         <Box flexGrow={1}>
           <iframe
+            title={html?.title}
             style={{
               aspectRatio: '1/1',
               background: '#fff',

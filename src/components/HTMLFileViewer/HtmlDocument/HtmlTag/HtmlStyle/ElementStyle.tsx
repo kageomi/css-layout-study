@@ -1,13 +1,14 @@
-import { ColorScheme } from '../../types';
+import { type FC } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
-import { Style } from './type';
+import type { ColorScheme } from '../../types';
+import type { Style } from './type';
 
 type StyleProps = {
   style: Style;
   colorScheme: ColorScheme;
 };
 
-const ElementStyle = ({ style, colorScheme }: StyleProps) => {
+const ElementStyle: FC<StyleProps> = ({ style, colorScheme }) => {
   return (
     <Box marginLeft="1em">
       <Flex gap={1}>

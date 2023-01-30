@@ -1,6 +1,6 @@
-import { CSSProperties, FC } from 'react';
-import { ColorScheme } from './types';
+import type { CSSProperties, FC } from 'react';
 import { Box } from '@chakra-ui/react';
+import type { ColorScheme } from './types';
 
 type Props = {
   style?: CSSProperties;
@@ -10,6 +10,7 @@ type Props = {
 
 const HtmlRootTag: FC<Props> = ({ colorScheme, style = {}, children = [] }) => {
   const tag = 'html';
+
   return (
     <Box style={style} marginLeft="1em">
       <Box display="inline-block" color={colorScheme.tagBlanket}>
