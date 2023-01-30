@@ -9,7 +9,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
+const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
   const [html, setHtml] = useState<HtmlFileDocument>();
 
   useEffect(() => {
@@ -63,4 +63,4 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
   );
 };
 
-export { HTMLFileViewer };
+export { HTMLFileView };

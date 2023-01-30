@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Heading, Flex, Box, Spacer } from '@chakra-ui/react';
 import centering from '../html/centering.html?url';
-import { HTMLFileViewer } from './HtmlFileViewer';
+import { HTMLFileView } from './HtmlFileView';
 
 const paths = [centering];
 
@@ -17,11 +17,11 @@ const LayoutStudy: FC = () => {
       <Spacer height="5em" />
       <Flex flexDirection="column" alignItems="center" gap={10}>
         {paths.map((path) => (
-          <HTMLFileViewer
+          <HTMLFileView
             key={path}
             path={path}
             style={{ maxHeight: '30%', width: '90%' }}
-          ></HTMLFileViewer>
+          ></HTMLFileView>
         ))}
       </Flex>
     </>
