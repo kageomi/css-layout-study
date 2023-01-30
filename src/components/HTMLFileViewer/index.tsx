@@ -1,5 +1,6 @@
 import { CSSProperties, FC, useEffect, useState } from 'react';
-import { removeScripts } from './helper';
+import { getDocumentFromHtml, documentToHtml } from './helper';
+import { Box, Flex } from '@chakra-ui/react';
 
 type Props = {
   path: string;
@@ -7,41 +8,36 @@ type Props = {
 };
 
 const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
-  const [htmlText, setHtmlText] = useState('');
+  const [html, setHtml] = useState<Document>();
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     const getHtmlText = async () => {
       const data = await fetch(path);
       const htmlText = await data.text();
-      const strippedHtmlText = removeScripts(htmlText);
-      setHtmlText(strippedHtmlText);
+      const { description, document } = getDocumentFromHtml(htmlText);
+      // console.log(strippedHtmlText);
+      setHtml(document);
+      setDescription(description);
     };
     getHtmlText();
   }, [path]);
-  const css: CSSProperties = {
-    ...style,
-    background: '#f6f6f6',
-    borderRadius: '20px',
-    padding: '20px',
-  };
+
+  const htmlText = html ? documentToHtml(html) : '';
+
   return (
-    <div style={css}>
-      <div>
+    <Box style={style} bgColor="gray.50" rounded={5} padding={5}>
+      <Box>
         <a href={path} target="_blank">
           show page
         </a>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          gap: '5%',
-        }}
-      >
-        <div style={{ flexGrow: 1, maxWidth: '50%' }}>
+        <div>{description}</div>
+      </Box>
+      <Flex justifyContent="space-around" gap="5%">
+        <Box flexGrow={1} minWidth="50%">
           <pre style={{ overflow: 'auto' }}>{htmlText}</pre>
-        </div>
-        <div style={{ flexGrow: 1 }}>
+        </Box>
+        <Box flexGrow={1}>
           <iframe
             style={{
               aspectRatio: '1/1',
@@ -51,9 +47,9 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
             frameBorder={0}
             src={path}
           ></iframe>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Flex>
+    </Box>
   );
 };
 

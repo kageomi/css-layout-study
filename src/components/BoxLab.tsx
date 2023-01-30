@@ -1,19 +1,16 @@
-import { HTMLFileViewer } from './HTMLFileViewer';
+import { HTMLFileViewer } from './HtmlFileViewer';
 import centering from '../html/centering.html?url';
+import { Heading, Flex, Spacer } from '@chakra-ui/react';
 
 const paths = [centering];
 
 const BoxLab = () => {
   return (
     <>
-      <h1>BOX DOM LAB</h1>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <Heading as="h1" size="4xl" textAlign="center" marginY={10}>
+        BOX DOM LAB
+      </Heading>
+      <Flex flexDirection="column" alignItems="center">
         {paths.map((path) => (
           <HTMLFileViewer
             key={path}
@@ -21,7 +18,7 @@ const BoxLab = () => {
             style={{ maxHeight: '30%', width: '90%' }}
           ></HTMLFileViewer>
         ))}
-      </div>
+      </Flex>
     </>
   );
 };
