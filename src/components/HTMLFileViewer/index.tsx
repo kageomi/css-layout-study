@@ -1,6 +1,6 @@
 import { CSSProperties, FC, useEffect, useState } from 'react';
 import { getDocumentFromHtml, HtmlFileDocument } from './helper';
-import { Box, Flex, Link, Heading } from '@chakra-ui/react';
+import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
 
 type Props = {
   path: string;
@@ -22,9 +22,19 @@ const HTMLFileViewer: FC<Props> = ({ path, style = {} }) => {
 
   return (
     <Box style={style} bgColor="gray.50" rounded={5} padding={5}>
-      <Box marginBottom={20}>
+      <Box marginBottom={10}>
         <Heading>{html?.title}</Heading>
-        <Box marginY={5}>{html?.description}</Box>
+        <Spacer height={5} />
+        <Flex>
+          {html?.keywords.map((keyword) => (
+            <Tag marginRight={2} colorScheme="cyan">
+              {keyword}
+            </Tag>
+          ))}
+        </Flex>
+        <Spacer height={2} />
+        <Box>{html?.description}</Box>
+        <Spacer height={5} />
         <Link color="teal.500" href={path} target="_blank">
           show page in new tab
         </Link>
