@@ -2,6 +2,8 @@ import type { CSSProperties, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
 import { HtmlData } from '../../models/HtmlData';
+import { ActiveIdProvider } from '../../providers/ActiveIdProvider';
+import { HtmlProvider } from '../../providers/HtmlProvider';
 import { HtmlDocument } from './HtmlDocument';
 
 type Props = {
@@ -10,32 +12,33 @@ type Props = {
 };
 
 const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
-  const [html, setHtml] = useState<HtmlData>();
+  const [htmlData, setHtmlData] = useState<HtmlData>();
+  const [activeId, setActiveId] = useState<HtmlData>();
 
   useEffect(() => {
     const getHtmlText = async () => {
       const data = await fetch(path);
       const htmlText = await data.text();
       const htmlData = new HtmlData(htmlText);
-      setHtml(htmlData);
+      setHtmlData(htmlData);
     };
     void getHtmlText();
   }, [path]);
 
-  return html ? (
+  return htmlData ? (
     <Box style={style} bgColor="gray.50" rounded={5} padding={5}>
       <Box marginBottom={10}>
-        <Heading>{html.title}</Heading>
+        <Heading>{htmlData.title}</Heading>
         <Spacer height={5} />
         <Flex>
-          {html.keywords.map((keyword) => (
+          {htmlData.keywords.map((keyword) => (
             <Tag key={keyword} marginRight={2} colorScheme="cyan">
               {keyword}
             </Tag>
           ))}
         </Flex>
         <Spacer height={2} />
-        <Box>{html.description}</Box>
+        <Box>{htmlData.description}</Box>
         <Spacer height={5} />
         <Link color="teal.500" href={path} target="_blank">
           show page in new tab
@@ -43,18 +46,22 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
       </Box>
       <Flex justifyContent="space-around" gap="5%">
         <Box flexGrow={1} maxWidth="50%">
-          <HtmlDocument htmlDocument={html.document} />
+          <HtmlProvider htmlData={htmlData}>
+            <ActiveIdProvider state={{ activeId, setActiveId }}>
+              <HtmlDocument htmlDocument={htmlData.document} />
+            </ActiveIdProvider>
+          </HtmlProvider>
         </Box>
         <Box flexGrow={1}>
           <iframe
-            title={html?.title}
+            title={htmlData.title}
             style={{
               aspectRatio: '1/1',
               background: '#fff',
               width: '100%',
             }}
             frameBorder={0}
-            srcDoc={html?.outerText}
+            srcDoc={htmlData.outerText}
           ></iframe>
         </Box>
       </Flex>

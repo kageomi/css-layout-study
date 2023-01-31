@@ -1,9 +1,12 @@
+import { uuidv4 } from '../util/uuid';
+
 class HtmlData {
   #document: Document;
   #cleanedDocument: Document;
 
   constructor(htmlText: string) {
     this.#document = this.#getDocumentFromText(htmlText);
+    this.#setRandomDataId(this.#document);
     this.#cleanedDocument = this.#getCleanedDocument(this.#document);
   }
 
@@ -40,6 +43,15 @@ class HtmlData {
 
   get outerText(): string {
     return this.#getTextFromDocument(this.#cleanedDocument);
+  }
+
+  #setRandomDataId(document: Document) {
+    const uuid = uuidv4();
+    Array.from(document.querySelectorAll<HTMLElement>('*')).forEach(
+      (element, index) => {
+        element.setAttribute('data-id', `${uuid}-${index}`);
+      }
+    );
   }
 
   #getCleanedDocument(document: Document): Document {

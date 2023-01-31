@@ -5,13 +5,13 @@ import { HtmlNode } from './HtmlNode';
 import { HtmlStyle } from './HtmlStyle';
 
 type Props = {
-  element: Element | ChildNode;
+  element: HTMLElement | ChildNode;
   style?: CSSProperties;
   colorScheme: ColorScheme;
 };
 
 const HtmlTag: FC<Props> = ({ element, colorScheme, style = {} }) => {
-  if (element instanceof Element && element.tagName === 'STYLE')
+  if (element instanceof HTMLElement && element.tagName === 'STYLE')
     return (
       <HtmlStyle
         styleElement={element}
@@ -20,7 +20,7 @@ const HtmlTag: FC<Props> = ({ element, colorScheme, style = {} }) => {
       />
     );
 
-  return element instanceof Element ? (
+  return element instanceof HTMLElement ? (
     <HtmlElement element={element} style={style} colorScheme={colorScheme} />
   ) : (
     <HtmlNode node={element} style={style} color={colorScheme.textNode} />
