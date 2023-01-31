@@ -1,7 +1,10 @@
 class HtmlData {
   #document: Document;
+  #cleanedDocument: Document;
+
   constructor(htmlText: string) {
     this.#document = this.#getDocumentFromText(htmlText);
+    this.#cleanedDocument = this.#getCleanedDocument(this.#document);
   }
 
   get document(): Document {
@@ -39,8 +42,8 @@ class HtmlData {
     return this.#getTextFromDocument(this.#cleanedDocument);
   }
 
-  get #cleanedDocument() {
-    const clonedDocument = this.#getClone(this.#document);
+  #getCleanedDocument(document: Document): Document {
+    const clonedDocument = this.#getClone(document);
     this.#cleanupDocument(clonedDocument);
 
     return clonedDocument;
