@@ -36,7 +36,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     if (element == null) return;
     if (tag !== 'head') setActiveId(elementId);
     htmlData.setStyleToIframeElement(selector, {
-      key: 'backgroundColor',
+      key: 'background-color',
       value: ACTIVE_ELEMENT_BG_COLOR,
     });
   };
@@ -48,7 +48,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     if (element == null) return;
     if (tag !== 'head') setActiveId('');
     htmlData.setStyleToIframeElement(selector, {
-      key: 'backgroundColor',
+      key: 'background-color',
       value: '',
     });
   };

@@ -54,7 +54,7 @@ class HtmlData {
     Array.from(
       this.iframeDocument.querySelectorAll<HTMLElement>(selector)
     ).forEach((element) => {
-      element.style[key] = value; // TODO: fix type error
+      element.style.setProperty(key, value);
     });
   }
 
