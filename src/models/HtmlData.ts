@@ -50,9 +50,7 @@ class HtmlData {
     selector: string,
     { key, value }: { key: string; value: string }
   ): void {
-    console.info('setStyleToIframeElement', this.iframeDocument, selector);
     if (this.iframeDocument == null) return;
-    console.info('setStyleToIframeElement has iframe');
     Array.from(
       this.iframeDocument.querySelectorAll<HTMLElement>(selector)
     ).forEach((element) => {

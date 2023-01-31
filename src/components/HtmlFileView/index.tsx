@@ -24,7 +24,6 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
   useEffect(() => {
     if (iframeRef == null || iframeRef.current == null || htmlData == null)
       return undefined;
-    console.info('set ref', iframeRef.current.contentDocument);
     htmlData.iframeDocument = iframeRef.current.contentDocument;
   }, [iframeRef, htmlData]);
 
