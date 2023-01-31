@@ -44,7 +44,6 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
       <Flex justifyContent="space-around" gap="5%">
         <Box flexGrow={1} maxWidth="50%">
           {html && <HtmlDocument htmlDocument={html.document} />}
-          {/* <pre style={{ overflow: 'auto' }}>{html?.outerText}</pre> */}
         </Box>
         <Box flexGrow={1}>
           <iframe
