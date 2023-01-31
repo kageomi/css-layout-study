@@ -12,7 +12,7 @@ const LayoutStudy: FC = () => {
         CSS LAYOUT STUDY
       </Heading>
       <Box fontSize="1.5em" paddingX="5%" textAlign="center">
-        a repository for self study about layout by csss
+        a repository for self study about layout by css
       </Box>
       <Spacer height="5em" />
       <Flex flexDirection="column" alignItems="center" gap={10}>
