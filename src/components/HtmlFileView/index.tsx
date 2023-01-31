@@ -55,7 +55,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
               width: '100%',
             }}
             frameBorder={0}
-            src={path}
+            srcDoc={html?.outerText}
           ></iframe>
         </Box>
       </Flex>
