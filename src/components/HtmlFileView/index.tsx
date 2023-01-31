@@ -1,8 +1,8 @@
 import type { CSSProperties, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
+import { HtmlData } from '../../models/HtmlData';
 import { HtmlDocument } from './HtmlDocument';
-import { getDocumentFromHtml, type HtmlFileDocument } from './helper';
 
 type Props = {
   path: string;
@@ -10,32 +10,32 @@ type Props = {
 };
 
 const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
-  const [html, setHtml] = useState<HtmlFileDocument>();
+  const [html, setHtml] = useState<HtmlData>();
 
   useEffect(() => {
     const getHtmlText = async () => {
       const data = await fetch(path);
       const htmlText = await data.text();
-      const fileDocument = getDocumentFromHtml(htmlText);
-      setHtml(fileDocument);
+      const htmlData = new HtmlData(htmlText);
+      setHtml(htmlData);
     };
     void getHtmlText();
   }, [path]);
 
-  return (
+  return html ? (
     <Box style={style} bgColor="gray.50" rounded={5} padding={5}>
       <Box marginBottom={10}>
-        <Heading>{html?.title}</Heading>
+        <Heading>{html.title}</Heading>
         <Spacer height={5} />
         <Flex>
-          {html?.keywords.map((keyword) => (
+          {html.keywords.map((keyword) => (
             <Tag key={keyword} marginRight={2} colorScheme="cyan">
               {keyword}
             </Tag>
           ))}
         </Flex>
         <Spacer height={2} />
-        <Box>{html?.description}</Box>
+        <Box>{html.description}</Box>
         <Spacer height={5} />
         <Link color="teal.500" href={path} target="_blank">
           show page in new tab
@@ -43,7 +43,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
       </Box>
       <Flex justifyContent="space-around" gap="5%">
         <Box flexGrow={1} maxWidth="50%">
-          {html && <HtmlDocument htmlDocument={html.document} />}
+          <HtmlDocument htmlDocument={html.document} />
         </Box>
         <Box flexGrow={1}>
           <iframe
@@ -59,6 +59,8 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
         </Box>
       </Flex>
     </Box>
+  ) : (
+    <></>
   );
 };
 
