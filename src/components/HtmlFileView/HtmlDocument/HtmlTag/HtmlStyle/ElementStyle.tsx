@@ -19,13 +19,11 @@ const ElementStyle: FC<StyleProps> = ({ style, colorScheme }) => {
     if (htmlData == null) return;
     if (element == null) return;
     if (element.dataset.id === activeId) return;
-    console.log('over', element.tagName, element.dataset.id);
     setActiveId(element.dataset.id ?? '');
   };
   const handleMouseLeave: MouseEventHandler = () => {
     if (htmlData == null) return;
     if (element == null) return;
-    console.log('leave', element.tagName, element.dataset.id);
     setActiveId('');
   };
 

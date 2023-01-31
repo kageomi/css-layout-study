@@ -1,5 +1,10 @@
-import type { CSSProperties, FC } from 'react';
-import { useEffect, useState } from 'react';
+import {
+  type CSSProperties,
+  type FC,
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
 import { Box, Flex, Link, Heading, Tag, Spacer } from '@chakra-ui/react';
 import { HtmlData } from '../../models/HtmlData';
 import { ActiveIdProvider } from '../../providers/ActiveIdProvider';
@@ -13,7 +18,14 @@ type Props = {
 
 const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
   const [htmlData, setHtmlData] = useState<HtmlData>();
-  const [activeId, setActiveId] = useState<HtmlData>();
+  const [activeId, setActiveId] = useState<string>('');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    if (iframeRef == null || iframeRef.current == null || htmlData == null)
+      return undefined;
+    htmlData.iframeDocument = iframeRef.current.contentDocument;
+  }, [iframeRef, htmlData]);
 
   useEffect(() => {
     const getHtmlText = async () => {
@@ -54,6 +66,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
         </Box>
         <Box flexGrow={1}>
           <iframe
+            ref={iframeRef}
             title={htmlData.title}
             style={{
               aspectRatio: '1/1',

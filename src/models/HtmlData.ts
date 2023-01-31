@@ -1,6 +1,7 @@
 import { uuidv4 } from '../util/uuid';
 
 class HtmlData {
+  iframeDocument: Document | null = null;
   #document: Document;
   #cleanedDocument: Document;
 
@@ -43,6 +44,18 @@ class HtmlData {
 
   get outerText(): string {
     return this.#getTextFromDocument(this.#cleanedDocument);
+  }
+
+  setStyleToIframeElement(
+    selector: string,
+    { key, value }: { key: string; value: string }
+  ): void {
+    if (this.iframeDocument == null) return;
+    Array.from(
+      this.iframeDocument.querySelectorAll<HTMLElement>(selector)
+    ).forEach((element) => {
+      element.style[key] = value; // TODO: fix type error
+    });
   }
 
   #setRandomDataId(document: Document) {
