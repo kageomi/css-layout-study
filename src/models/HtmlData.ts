@@ -53,20 +53,19 @@ class HtmlData {
     { key, value }: { key: string; value: string }
   ): void {
     if (this.iframeDocument == null) return;
-    Array.from(
-      this.iframeDocument.querySelectorAll<HTMLElement>(selector)
-    ).forEach((element) => {
-      element.style.setProperty(key, value);
-    });
+
+    this.iframeDocument
+      .querySelectorAll<HTMLElement>(selector)
+      .forEach((element) => {
+        element.style.setProperty(key, value);
+      });
   }
 
   #setRandomDataId(document: Document) {
     const uuid = uuidv4();
-    Array.from(document.querySelectorAll<HTMLElement>('*')).forEach(
-      (element, index) => {
-        element.setAttribute(this.dataIdLabel, `${uuid}-${index}`);
-      }
-    );
+    document.querySelectorAll<HTMLElement>('*').forEach((element, index) => {
+      element.setAttribute(this.dataIdLabel, `${uuid}-${index}`);
+    });
   }
 
   #getCleanedDocument(document: Document): Document {
