@@ -20,7 +20,7 @@ const LayoutStudy: FC = () => {
           <HTMLFileView
             key={path}
             path={path}
-            style={{ maxHeight: '30%', width: '90%' }}
+            style={{ width: '90%' }}
           ></HTMLFileView>
         ))}
       </Flex>
