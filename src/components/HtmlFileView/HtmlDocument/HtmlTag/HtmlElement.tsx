@@ -1,8 +1,10 @@
 import type { CSSProperties, FC, MouseEventHandler } from 'react';
 import { Box } from '@chakra-ui/react';
+import { dataIdLabel } from '../../../../models/HtmlData';
 import { useActiveIdContext } from '../../../../providers/ActiveIdProvider';
 import { useHtmlContext } from '../../../../providers/HtmlProvider';
 import type { ColorScheme } from '../types';
+import { HtmlAttribute } from './HtmlAttribute';
 import { HtmlTag } from '.';
 
 const ACTIVE_ELEMENT_BG_COLOR = 'rgba(255,0,0,0.1)';
@@ -13,13 +15,27 @@ type Props = {
   colorScheme: ColorScheme;
 };
 
+const extractAttributes = (tagText: string) => {
+  const matches = tagText.matchAll(/\s([^\s]+?)="([^\s]+?)"/g) ?? [];
+  const attributes = [...matches]
+    .map((match) => ({
+      key: match[1],
+      value: match[2],
+    }))
+    .filter((attribute) => attribute.key !== dataIdLabel);
+
+  return attributes;
+};
+
 const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
+  const representation = element.outerHTML.split(/>/)[0].split(/\n/).join('');
+  const attributes = extractAttributes(representation);
   const { activeId, setActiveId } = useActiveIdContext();
   const htmlData = useHtmlContext();
-  const { childNodes, tagName, dataset } = element;
-  const isActive = dataset.id === activeId;
-  const elementId = dataset.id ?? '';
-  const selector = `[data-id="${dataset.id ?? ''}"]`;
+  const { childNodes, tagName } = element;
+  const elementId = element.getAttribute(dataIdLabel);
+  const isActive = elementId === activeId;
+  const selector = `[${htmlData?.dataIdLabel}="${elementId ?? ''}"]`;
   const backgroundColor = isActive ? ACTIVE_ELEMENT_BG_COLOR : '';
   const tag = tagName.toLocaleLowerCase();
   const childNodeComponents = Array.from(childNodes).map((child, index) => {
@@ -27,6 +43,15 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
 
     return <HtmlTag key={key} element={child} colorScheme={colorScheme} />;
   });
+  const attributeComponents = attributes.map(({ key, value }) => (
+    <HtmlAttribute
+      key={key}
+      marginLeft="1em"
+      attrKey={key}
+      attrValue={value}
+      colorScheme={colorScheme}
+    />
+  ));
 
   const handleMouseOver: MouseEventHandler = (event) => {
     event.stopPropagation();
@@ -34,7 +59,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     const document = htmlData.document;
     const element = document.querySelector<HTMLElement>(selector);
     if (element == null) return;
-    if (tag !== 'head') setActiveId(elementId);
+    if (tag !== 'head') setActiveId(elementId ?? '');
     htmlData.setStyleToIframeElement(selector, {
       key: 'background-color',
       value: ACTIVE_ELEMENT_BG_COLOR,
@@ -67,7 +92,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
       <Box display="inline-block" color={colorScheme.tagName}>
         {tag}
       </Box>
-      {/* TODO: attributes */}
+      {attributeComponents}
       <Box display="inline-block" color={colorScheme.tagBlanket}>
         &gt;
       </Box>

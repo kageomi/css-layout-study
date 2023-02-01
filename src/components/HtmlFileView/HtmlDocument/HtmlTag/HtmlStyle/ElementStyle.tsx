@@ -1,5 +1,6 @@
 import { type FC, type MouseEventHandler } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
+import { dataIdLabel } from '../../../../../models/HtmlData';
 import { useActiveIdContext } from '../../../../../providers/ActiveIdProvider';
 import { useHtmlContext } from '../../../../../providers/HtmlProvider';
 import type { ColorScheme } from '../../types';
@@ -18,8 +19,9 @@ const ElementStyle: FC<StyleProps> = ({ style, colorScheme }) => {
   const handleMouseOver: MouseEventHandler = () => {
     if (htmlData == null) return;
     if (element == null) return;
-    if (element.dataset.id === activeId) return;
-    setActiveId(element.dataset.id ?? '');
+    const elementId = element.getAttribute(dataIdLabel);
+    if (elementId === activeId) return;
+    setActiveId(elementId ?? '');
   };
   const handleMouseLeave: MouseEventHandler = () => {
     if (htmlData == null) return;
