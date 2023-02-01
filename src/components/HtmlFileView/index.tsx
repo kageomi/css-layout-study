@@ -25,7 +25,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
     if (iframeRef == null || iframeRef.current == null || htmlData == null)
       return undefined;
     htmlData.iframeDocument = iframeRef.current.contentDocument;
-  }, [iframeRef, htmlData]);
+  }, [iframeRef, htmlData, activeIds]); // TODO: remove activeIds
 
   useEffect(() => {
     const getHtmlText = async () => {
