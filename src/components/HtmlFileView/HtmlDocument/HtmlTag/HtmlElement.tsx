@@ -35,7 +35,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
   const htmlData = useHtmlContext();
   const { childNodes, tagName } = element;
   const elementId = element.getAttribute(dataIdLabel);
-  const isActive = activeIds.includes(elementId ?? '');
+  const isActive = elementId != null && activeIds.includes(elementId);
   const selector = `[${htmlData?.dataIdLabel}="${elementId ?? ''}"]`;
   const tag = tagName.toLocaleLowerCase();
   const backgroundColor =
