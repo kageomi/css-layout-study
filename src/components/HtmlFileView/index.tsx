@@ -56,18 +56,8 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
           show page in new tab
         </Link>
       </Box>
-      <Flex justifyContent="space-around" gap="5%">
-        <Box flexGrow={1} maxWidth="50%">
-          <HtmlProvider htmlData={htmlData}>
-            <ActiveIdProvider state={{ activeIds, setActiveIds }}>
-              <HtmlDocument
-                htmlDocument={htmlData.document}
-                style={{ maxHeight: '80vh' }}
-              />
-            </ActiveIdProvider>
-          </HtmlProvider>
-        </Box>
-        <Box flexGrow={1}>
+      <Flex justifyContent="space-around" gap="5%" wrap="wrap">
+        <Box flexGrow={1} minWidth={{ sm: '100%', md: '0%' }} mb="5">
           <iframe
             ref={iframeRef}
             title={htmlData.title}
@@ -79,6 +69,16 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
             frameBorder={0}
             srcDoc={htmlData.outerText}
           ></iframe>
+        </Box>
+        <Box flexGrow={1} minWidth={{ sm: '100%', md: '0%' }}>
+          <HtmlProvider htmlData={htmlData}>
+            <ActiveIdProvider state={{ activeIds, setActiveIds }}>
+              <HtmlDocument
+                htmlDocument={htmlData.document}
+                maxHeight={{ sm: '30vh', md: '80vh' }}
+              />
+            </ActiveIdProvider>
+          </HtmlProvider>
         </Box>
       </Flex>
     </Box>
