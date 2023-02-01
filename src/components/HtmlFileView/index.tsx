@@ -18,7 +18,7 @@ type Props = {
 
 const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
   const [htmlData, setHtmlData] = useState<HtmlData>();
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeIds, setActiveIds] = useState<string[]>([]);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
       <Flex justifyContent="space-around" gap="5%">
         <Box flexGrow={1} maxWidth="50%">
           <HtmlProvider htmlData={htmlData}>
-            <ActiveIdProvider state={{ activeId, setActiveId }}>
+            <ActiveIdProvider state={{ activeIds, setActiveIds }}>
               <HtmlDocument htmlDocument={htmlData.document} />
             </ActiveIdProvider>
           </HtmlProvider>

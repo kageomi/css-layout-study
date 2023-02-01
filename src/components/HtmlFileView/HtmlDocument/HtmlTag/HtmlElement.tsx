@@ -8,6 +8,7 @@ import { HtmlAttribute } from './HtmlAttribute';
 import { HtmlTag } from '.';
 
 const ACTIVE_ELEMENT_BG_COLOR = 'rgba(255,0,0,0.1)';
+const NO_STYLED_TAGS = ['head', 'style', 'meta', 'title'];
 
 type Props = {
   element: HTMLElement;
@@ -30,14 +31,15 @@ const extractAttributes = (tagText: string) => {
 const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
   const representation = element.outerHTML.split(/>/)[0].split(/\n/).join('');
   const attributes = extractAttributes(representation);
-  const { activeId, setActiveId } = useActiveIdContext();
+  const { activeIds, setActiveIds } = useActiveIdContext();
   const htmlData = useHtmlContext();
   const { childNodes, tagName } = element;
   const elementId = element.getAttribute(dataIdLabel);
-  const isActive = elementId === activeId;
+  const isActive = activeIds.includes(elementId ?? '');
   const selector = `[${htmlData?.dataIdLabel}="${elementId ?? ''}"]`;
-  const backgroundColor = isActive ? ACTIVE_ELEMENT_BG_COLOR : '';
   const tag = tagName.toLocaleLowerCase();
+  const backgroundColor =
+    isActive && !NO_STYLED_TAGS.includes(tag) ? ACTIVE_ELEMENT_BG_COLOR : '';
   const childNodeComponents = Array.from(childNodes).map((child, index) => {
     const key = `${index} ${child instanceof HTMLElement ? child.tagName : ''}`;
 
@@ -59,7 +61,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     const document = htmlData.document;
     const element = document.querySelector<HTMLElement>(selector);
     if (element == null) return;
-    if (tag !== 'head') setActiveId(elementId ?? '');
+    if (tag !== 'head') setActiveIds(elementId != null ? [elementId] : []);
     htmlData.setStyleToIframeElement(selector, {
       key: 'background-color',
       value: ACTIVE_ELEMENT_BG_COLOR,
@@ -71,7 +73,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     const document = htmlData.document;
     const element = document.querySelector<HTMLElement>(selector);
     if (element == null) return;
-    if (tag !== 'head') setActiveId('');
+    if (tag !== 'head') setActiveIds([]);
     htmlData.setStyleToIframeElement(selector, {
       key: 'background-color',
       value: '',
