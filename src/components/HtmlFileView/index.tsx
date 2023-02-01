@@ -62,7 +62,7 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
             <ActiveIdProvider state={{ activeIds, setActiveIds }}>
               <HtmlDocument
                 htmlDocument={htmlData.document}
-                style={{ maxHeight: '50vh' }}
+                style={{ maxHeight: '80vh' }}
               />
             </ActiveIdProvider>
           </HtmlProvider>
