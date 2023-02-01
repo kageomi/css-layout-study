@@ -22,20 +22,13 @@ const HtmlDocument: FC<Props> = ({
       padding={2}
       rounded={5}
       overflow="auto"
+      style={style}
     >
-      <HtmlRootTag colorScheme={colorScheme} style={style}>
+      <HtmlRootTag colorScheme={colorScheme}>
         <Spacer height={2} />
-        <HtmlTag
-          element={htmlDocument.head}
-          colorScheme={colorScheme}
-          style={style}
-        />
+        <HtmlTag element={htmlDocument.head} colorScheme={colorScheme} />
         <Spacer height={2} />
-        <HtmlTag
-          element={htmlDocument.body}
-          colorScheme={colorScheme}
-          style={style}
-        />
+        <HtmlTag element={htmlDocument.body} colorScheme={colorScheme} />
         <Spacer height={2} />
       </HtmlRootTag>
     </Box>
