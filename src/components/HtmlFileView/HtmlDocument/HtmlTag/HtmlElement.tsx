@@ -62,6 +62,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     const element = document.querySelector<HTMLElement>(selector);
     if (element == null) return;
     if (tag !== 'head') setActiveIds(elementId != null ? [elementId] : []);
+    console.info('over', htmlData.iframeDocument);
     htmlData.setStyleToIframeElement(selector, {
       key: 'background-color',
       value: ACTIVE_ELEMENT_BG_COLOR,
@@ -74,6 +75,7 @@ const HtmlElement: FC<Props> = ({ element, colorScheme, style = {} }) => {
     const element = document.querySelector<HTMLElement>(selector);
     if (element == null) return;
     if (tag !== 'head') setActiveIds([]);
+    console.info('leave', htmlData.iframeDocument);
     htmlData.setStyleToIframeElement(selector, {
       key: 'background-color',
       value: '',
