@@ -17,7 +17,12 @@ const HtmlDocument: FC<Props> = ({
   colorScheme = defaultScheme,
 }) => {
   return (
-    <Box background={colorScheme.background} padding={2} rounded={5}>
+    <Box
+      background={colorScheme.background}
+      padding={2}
+      rounded={5}
+      overflow="auto"
+    >
       <HtmlRootTag colorScheme={colorScheme} style={style}>
         <Spacer height={2} />
         <HtmlTag

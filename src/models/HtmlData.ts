@@ -1,7 +1,9 @@
 import { uuidv4 } from '../util/uuid';
 
+const dataIdLabel = 'data-elmid';
 class HtmlData {
   iframeDocument: Document | null = null;
+  dataIdLabel = dataIdLabel;
   #document: Document;
   #cleanedDocument: Document;
 
@@ -62,7 +64,7 @@ class HtmlData {
     const uuid = uuidv4();
     Array.from(document.querySelectorAll<HTMLElement>('*')).forEach(
       (element, index) => {
-        element.setAttribute('data-id', `${uuid}-${index}`);
+        element.setAttribute(this.dataIdLabel, `${uuid}-${index}`);
       }
     );
   }
@@ -104,4 +106,4 @@ class HtmlData {
   }
 }
 
-export { HtmlData };
+export { HtmlData, dataIdLabel };

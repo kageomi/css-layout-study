@@ -6,7 +6,7 @@ const colorScheme = {
   // tagName: '#4192cd',
   tagName: '#38c3a8',
   attributeName: '#8bd8fb',
-  attributeValue: '#80c7e7',
+  attributeValue: '#cb846f',
   textNode: '#cecece',
   cssTagName: '#d4af76',
   cssAttributeName: '#8bd8fb',
