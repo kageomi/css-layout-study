@@ -12,21 +12,22 @@ type StyleProps = {
 };
 
 const ElementStyle: FC<StyleProps> = ({ style, colorScheme }) => {
-  const { activeId, setActiveId } = useActiveIdContext();
+  const { setActiveIds } = useActiveIdContext();
   const htmlData = useHtmlContext();
   const { selector } = style;
-  const element = htmlData?.document.querySelector<HTMLElement>(selector);
+  const elements = htmlData?.document.querySelectorAll<HTMLElement>(selector);
   const handleMouseOver: MouseEventHandler = () => {
     if (htmlData == null) return;
-    if (element == null) return;
-    const elementId = element.getAttribute(dataIdLabel);
-    if (elementId === activeId) return;
-    setActiveId(elementId ?? '');
+    if (elements == null) return;
+    const elementIds = Array.from(elements).map(
+      (element) => element.getAttribute(dataIdLabel) ?? ''
+    );
+    setActiveIds(elementIds);
   };
   const handleMouseLeave: MouseEventHandler = () => {
     if (htmlData == null) return;
-    if (element == null) return;
-    setActiveId('');
+    if (elements == null) return;
+    setActiveIds([]);
   };
 
   return (

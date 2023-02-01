@@ -3,8 +3,8 @@ import { type FC, type Dispatch, useContext } from 'react';
 import { createContext } from 'react';
 
 type ActiveIdContextValue = {
-  activeId: string;
-  setActiveId: Dispatch<React.SetStateAction<string>>;
+  activeIds: string[];
+  setActiveIds: Dispatch<React.SetStateAction<string[]>>;
 };
 
 type Props = {
@@ -15,8 +15,8 @@ type Props = {
 const ActiveIdContext = createContext<ActiveIdContextValue>(undefined as never);
 
 const ActiveIdProvider: FC<Props> = ({ state, children }) => {
-  const { activeId, setActiveId } = state;
-  const value = { activeId, setActiveId };
+  const { activeIds, setActiveIds } = state;
+  const value = { activeIds, setActiveIds };
 
   return (
     <ActiveIdContext.Provider value={value}>
