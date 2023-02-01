@@ -60,7 +60,10 @@ const HTMLFileView: FC<Props> = ({ path, style = {} }) => {
         <Box flexGrow={1} maxWidth="50%">
           <HtmlProvider htmlData={htmlData}>
             <ActiveIdProvider state={{ activeIds, setActiveIds }}>
-              <HtmlDocument htmlDocument={htmlData.document} />
+              <HtmlDocument
+                htmlDocument={htmlData.document}
+                style={{ maxHeight: '50vh' }}
+              />
             </ActiveIdProvider>
           </HtmlProvider>
         </Box>
