@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Centering with grid</title>
+    <meta
+      name="keywords"
+      content="height, grid, without vh, html height:100%"
+    />
+    <meta
+      name="description"
+      content="Horizontally and vertically centering element without putting static width or height. Usable as a component."
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        display: grid;
+      }
+      body > div {
+        margin: 5%;
+        border: 1px solid #999;
+        border-radius: 10%;
+        box-sizing: border-box;
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <span class="content">center</span>
+    </div>
+  </body>
+</html>
