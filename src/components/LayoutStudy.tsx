@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 import { Heading, Flex, Box, Spacer } from '@chakra-ui/react';
+import centeringWithGrid from '../html/centering-grid.html?url';
 import centering from '../html/centering.html?url';
 import { HTMLFileView } from './HtmlFileView';
 
-const paths = [centering];
+const paths = [centering, centeringWithGrid];
 
 const LayoutStudy: FC = () => {
   return (

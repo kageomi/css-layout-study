@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Centering with flex</title>
+    <title>Simple Centering with grid</title>
     <meta
       name="keywords"
-      content="height, flex, without vh, html height:100%"
+      content="height, grid, without vh, html height:100%"
     />
     <meta
       name="description"
@@ -20,17 +20,15 @@
       }
       body {
         height: 100%;
-        display: flex;
+        display: grid;
       }
       body > div {
-        flex-grow: 1;
         margin: 5%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         border: 1px solid #999;
         border-radius: 10%;
         box-sizing: border-box;
+        display: grid;
+        place-items: center;
       }
     </style>
   </head>
